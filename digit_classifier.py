@@ -45,7 +45,7 @@ path = sys.argv[1] #Path to image
 img = PImage.open(path)
 img = PIL.ImageOps.invert(img) #Invert image to make it similar to MNIST digits when greyscale
 img = img.convert('LA') #convert to greyscale
-img = img.rotate(-90) #If image is rotated, might be if taken with iPhone
+#img = img.rotate(-90) #If image is rotated, might be if taken with iPhone
 
 #img and tmp are similar to eachother, just different data types
 #img is Image object, tmp is numpy array
@@ -64,8 +64,8 @@ for i in range(tmp.size):
 tmp = tmp.reshape([img.height, img.width])
 
 #Uncomment below for a visualization of the (hopefully) separated digit
-sns.heatmap(tmp)
-plt.show()
+#sns.heatmap(tmp)
+#plt.show()
 
 #Time to locate the digit
 def find_digit_row(image, idx_range):
@@ -120,11 +120,16 @@ if(tmp.shape[0]<tmp.shape[1]):
 #plt.show()
 
 img = PIL.Image.fromarray(tmp) #convert back to Image object for resizing
-img = img.resize([20,20]), PImage.ANTIALIAS) #convert to 20x20 pixel
+img = img.resize([20,20], PImage.ANTIALIAS) #convert to 20x20 pixel
 tmp = np.asarray(img) #convert back to numpy array
 
-#Move the centre of the digit to the centre of the image
-#Start with calculating the mass centre
+#Time to move the centre of the digit to the centre of the image
+#Start by placing the 20x20 image in the upper-left corner of the 28z28 image
+tmp_28 = np.zeros([28,28])
+tmp_28[0:20,0:20] = tmp
+tmp = tmp_28 #tmp is now a 28x28
+
+#Calculate the mass centre
 total_mass = np.sum(np.sum(tmp))
 cdf = 0
 for i in range(tmp.shape[0]): #calculate centre along axis 0
@@ -140,38 +145,32 @@ for i in range(tmp.shape[1]): #calculate centre along axis 1
         break
 
 #print(mass_center_row, mass_center_col)
-diff_row = 9 - mass_center_row #could be 10 as well, cannot move exactly to centre
-diff_col = 9 - mass_center_col
+diff_row = 13 - mass_center_row
+diff_col = 13 - mass_center_col
 
-#Insert digit in 28x28 empty background
 tmp_28 = np.zeros([28,28])
-tmp_28[4+diff_row:24+diff_row,4+diff_col:24+diff_col] = tmp
+#place the digit at the centre
+tmp_28[diff_row:20+diff_row,+diff_col:20+diff_col] = tmp[0:20,0:20]
+
+#Do one more filtering of the background to remove background level caused
+#by the antialiasing when reducing image size
+tmp_28 = tmp_28.reshape([1, 28*28])
+for i in range(tmp_28.size):
+    if(tmp_28[0,i] < 100):
+        tmp_28[0,i] = 0
+
+tmp_28 = tmp_28.reshape([28, 28])
 
 #Uncomment below for visualisation of digit
-sns.heatmap(tmp_28)
-plt.show()
+#sns.heatmap(tmp_28)
+#plt.show()
 
-#Double check wheter the mass centre is correctly placed
-#total_mass = np.sum(np.sum(tmp_28))
-#cdf = 0
-#for i in range(tmp_28.shape[0]):
-#    cdf += np.sum(tmp_28[i,:])
-#    if(cdf>=0.5*total_mass):
-#        mass_center_row = i
-#        break
-#cdf = 0
-#for i in range(tmp_28.shape[1]):
-#    cdf += np.sum(tmp_28[:,i])
-#    if(cdf>=0.5*total_mass):
-#        mass_center_col = i
-#        break
-#print(mass_center_row, mass_center_col)
 
 #Now it is finally time to do the classifying
 
 X_tmp = tmp_28.reshape([1, 784])
 #Load pre-trained model, can be changed easily by simply loading another pre-trained model
-filename = "svc_model.sav"
+filename = "svc_model_tmp.sav"
 loaded_model = pickle.load(open(filename, 'rb'))
 result = loaded_model.predict(X_tmp)
 
