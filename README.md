@@ -1,8 +1,7 @@
-# Digit_classifer
-
-### Current known bugs
+#### Current known bugs
 - Running on Linux might cause an error to occur when running digit_classifier.py at line 60 at conversion time, it doesn't show on my Mac however. 
 
+# Digit_classifer
 This small project is focused on a python script that attempts to classify hand-written digits in photos. The classification is done using a SVM (Support Vector Machine) which was trained on the MNIST database training set and uses a polynomial
 kernel of order 3. An accuracy of ~97% was achieved on the MNIST test set.
 
