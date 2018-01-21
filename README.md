@@ -1,4 +1,4 @@
-## Digit_classifer
+# Digit_classifer
 
 This small project is focused on a python script that attempts to classify hand-written digits in photos. The classification is done using a SVM (Support Vector Machine) which was trained on the MNIST database training set and uses a polynomial
 kernel of order 3. An accuracy of ~97% was achieved on the MNIST test set.
@@ -16,18 +16,18 @@ the feature engineering. A high-level description of the script is as follows:
 - Change the resolution and padd with (white) background
 - Classify the digit
 
-# Current limitations:
+## Current limitations:
 - Only one digit can be visible in image
 - Static filtering of background
 
-# Tips for higher accuracy on your own hand-written digits:
+## Tips for higher accuracy on your own hand-written digits:
 - Have only one digit visible
 - Write the digit on a blank paper and avoid other dark things in the same image
 - Use a dark pen and draw a fat digit (the higher contrast vs. background, the better)
 - An up-close photo of the digit is a good thing, especially if the camera/image resolution to be processed by this script is low.
 - Try to avoid out-of focus, since that lowers the contrast and the sharpness of the digit's edges
 
-# Usage 
+## Usage 
 Due to the rather large ML-model size (~50 MB), the training is done on
 your computer, requiring it to download the MNIST database. If your run the
 setup script, the database will be removed after the setup.
