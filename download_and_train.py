@@ -1,5 +1,6 @@
 import numpy as np
 import os
+import pandas as pd
 from sklearn.svm import SVC
 import seaborn as sns
 import matplotlib.pyplot as plt
