@@ -8,7 +8,7 @@ to the MNIST digits. The MNIST digits are contained in a 20x20 pixel grid and th
 Furthermore, the digits in the MNIST database have their centre of mass in the middle of the image. They have
 also been filtered to remove background and noise, and has also been normalised.
 
-This script loads a pre-trained SVM model (trained using sklearn for minimum implementation), and focuses on
+The classifying python script loads a pre-trained SVM model (trained using sklearn for minimum implementation), and focuses on
 the feature engineering. A high-level description of the script is as follows:
 - Convert image to grayscale, normalise, and separate digit from background
 - Find the digit and crop it out as a square
