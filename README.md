@@ -1,5 +1,8 @@
 # Digit_classifer
 
+### Current known bugs
+- Running on Linux might cause an error to occur when running digit_classifier.py at line 60 at conversion time, it doesn't show on my Mac however. 
+
 This small project is focused on a python script that attempts to classify hand-written digits in photos. The classification is done using a SVM (Support Vector Machine) which was trained on the MNIST database training set and uses a polynomial
 kernel of order 3. An accuracy of ~97% was achieved on the MNIST test set.
 
@@ -31,6 +34,7 @@ the feature engineering. A high-level description of the script is as follows:
 Due to the rather large ML-model size (~50 MB), the training is done on
 your computer, requiring it to download the MNIST database. If your run the
 setup script, the database will be removed after the setup.
-From terminal, navigate to the folder with setup.sh and run `./setup.sh`
-Once the setup is completed, you can run the classifier as:
+From terminal, navigate to the folder with setup.sh and run `chmod u+x setup.sh` and then `./setup.sh`
+Once the setup is completed, you can run the classifier using:
 `python3 digit_classifier.py /path/to/file.jpg`
+Note! On my Mac it works using both python and python3 but there has been indication that the setup requires python3 on Linux.
