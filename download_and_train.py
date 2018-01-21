@@ -34,13 +34,13 @@ test_data = test.drop('7', axis=1)
 
 
 #Look at one digit to get a glimpse of the data
-sample_index = 3
-tmp = np.array(test_data)
-tmp = np.array(tmp[sample_index,:].reshape([28, 28]))
+#sample_index = 3
+#tmp = np.array(test_data)
+#tmp = np.array(tmp[sample_index,:].reshape([28, 28]))
 
-sns.heatmap(tmp)
-plt.show()
-print("Digit label: ", test_labels[sample_index])
+#sns.heatmap(tmp)
+#plt.show()
+#print("Digit label: ", test_labels[sample_index])
 
 #Train the SVM classifier
 
