@@ -36,7 +36,12 @@ import pickle
         #processed by this script is low.
     #-Try to avoid out-of focus, since that lowers the contrast and the sharpness of the digit's edges
 
-#USAGE: from terminal, run "python3 digit_classifier.py /path/to/file.jpg"
+#USAGE: Due to the rather large ML-model size (~50 MB), the training is done on
+#your computer, requiring it to download the MNIST database. If your run the
+#setup script, the database will be removed after the setup.
+#From terminal, navigate to the folder with setup.sh and run "./setup.sh"
+#Once the setup is completed, you can run the classifier as:
+#"python3 digit_classifier.py /path/to/file.jpg"
 
 path = sys.argv[1] #Path to image
 #path = "/Users/johanneskoch/Downloads/digit_8 2.jpg"
